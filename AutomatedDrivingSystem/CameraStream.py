@@ -67,14 +67,7 @@ class CameraStream:
             self.imageBufferIsEmpty = True
             
     def beginRemoteStream(self):
-        # find IP of raspberry pi using ping
-        pingParameters = "-n 1" if platform.system().lower()=="windows" else "-c 1"
-        hostname = "raspberrypi.local" if platform.system().lower()=="darwin" else "raspberrypi"
-        result = subprocess.check_output("ping " + pingParameters + " " + hostname, shell=True)
-        # use string.splits to extract IP from ping output
-        piIP = result.split((hostname+" ("),1)[1].split(')',1)[0] if platform.system().lower()=="darwin" else result.split((hostname+"from "),1)[1].split(':',1)[0]
-        print piIP
-        
+        piIP = '10.0.0.1'
         # SSH into the pi to start the streaming script
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
